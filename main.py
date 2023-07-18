@@ -5,8 +5,8 @@ import pytz
 
 api_key = config.API_KEY
 
-#change to user input
-city = "East Lansing"
+#user input
+city = input("Enter the city you want: ")
 url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
 #recieving responses from the api
@@ -16,10 +16,10 @@ data = response.json()
 timeZoneOff = response.json()["timezone"]
 timeDiff = timeZoneOff / 3600
 
-sunrise = data["sys"]["sunset"]
+sunset = data["sys"]["sunset"]
 
-#converts the sunset time to a time that 
-convertReg = datetime.datetime.utcfromtimestamp(sunrise)
+#converts the sunset time to a time that I can use
+convertReg = datetime.datetime.utcfromtimestamp(sunset)
 timern = convertReg.strftime("%H:%M:%S")
 toChange = timern[0:2]
 
@@ -35,4 +35,4 @@ subBackIn = str(temp)
 finalAns = subBackIn + timern[2:-3] + " pm"
 
 #prints answer
-print(finalAns)
+print(f"The sun will set in {city} at {finalAns}")
